@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html ⚡ lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global News Daily - Latest Updates</title>
+    <link rel="canonical" href="#">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    
+    <!-- AMP Components -->
+    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+    <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    <style amp-custom>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #34a853;
+            --dark-color: #202124;
+            --light-color: #f8f9fa;
+            --danger-color: #ea4335;
+            --warning-color: #fbbc05;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--danger-color);
+        }
+        
+        .menu-toggle {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 300px;
+            background: white;
+            padding: 20px;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .close-sidebar {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .sidebar-nav {
+            list-style: none;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 15px;
+        }
+        
+        .sidebar-nav a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-size: 18px;
+            display: block;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+        
+        .sidebar-nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+        }
+        
+        .hero-title {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .hero-meta span {
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+        }
+        
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .news-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .news-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-category {
+            display: inline-block;
+            padding: 4px 10px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .news-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .news-excerpt {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #888;
+        }
+        
+        /* Breaking News Ticker */
+        .breaking-news {
+            background-color: var(--danger-color);
+            color: white;
+            padding: 10px 0;
+            margin-bottom: 30px;
+        }
+        
+        .breaking-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .breaking-label {
+            background-color: white;
+            color: var(--danger-color);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+        
+        .breaking-content {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+        
+        .breaking-text {
+            white-space: nowrap;
+            animation: ticker 30s linear infinite;
+            display: inline-block;
+            padding-left: 100%;
+        }
+        
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* Featured Carousel */
+        .featured-carousel {
+            margin-bottom: 40px;
+        }
+        
+        .carousel-item {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+        
+        .carousel-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+        }
+        
+        .carousel-category {
+            display: inline-block;
+            padding: 4px 10px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .carousel-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        
+        .category-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+        
+        .category-tab.active {
+            border-bottom-color: var(--primary-color);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: white;
+            background-color: rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero {
+                height: 300px;
+            }
+            
+            .hero-title {
+                font-size: 22px;
+            }
+            
+            .carousel-item {
+                height: 350px;
+            }
+            
+            .carousel-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+    
+    <!-- AMP Boilerplate -->
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="navbar">
+            <a href="index.html" class="logo">Global<span>News</span></a>
+            <button class="menu-toggle" on="tap:sidebar.toggle">☰</button>
+        </div>
+    </header>
+    
+    <!-- Sidebar Navigation -->
+    <amp-sidebar id="sidebar" layout="nodisplay" side="left">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">Global<span>News</span></a>
+                <button class="close-sidebar" on="tap:sidebar.toggle">×</button>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="category.html?cat=politics">Politics</a></li>
+                <li><a href="category.html?cat=business">Business</a></li>
+                <li><a href="category.html?cat=technology">Technology</a></li>
+                <li><a href="category.html?cat=science">Science</a></li>
+                <li><a href="category.html?cat=health">Health</a></li>
+                <li><a href="category.html?cat=sports">Sports</a></li>
+                <li><a href="category.html?cat=entertainment">Entertainment</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </amp-sidebar>
+    
+    <!-- Breaking News Ticker -->
+    <div class="breaking-news">
+        <div class="breaking-container">
+            <div class="breaking-label">BREAKING</div>
+            <div class="breaking-content">
+                <div class="breaking-text">
+                    Major earthquake hits Indonesia: 7.2 magnitude quake strikes off Sumatra coast - Tsunami warning issued - Stay tuned for updates
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Featured Carousel -->
+        <div class="featured-carousel">
+            <amp-carousel width="1200" height="500" layout="responsive" type="slides" autoplay delay="5000">
+                <div class="carousel-item">
+                    <amp-img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?world" width="1200" height="500" layout="responsive" alt="Featured News 1"></amp-img>
+                    <div class="carousel-content">
+                        <span class="carousel-category">WORLD</span>
+                        <h2 class="carousel-title">Global Leaders Meet at G7 Summit to Address Climate Change</h2>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <amp-img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?technology" width="1200" height="500" layout="responsive" alt="Featured News 2"></amp-img>
+                    <div class="carousel-content">
+                        <span class="carousel-category">TECHNOLOGY</span>
+                        <h2 class="carousel-title">Apple Unveils Revolutionary New AR Glasses at WWDC</h2>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <amp-img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?sports" width="1200" height="500" layout="responsive" alt="Featured News 3"></amp-img>
+                    <div class="carousel-content">
+                        <span class="carousel-category">SPORTS</span>
+                        <h2 class="carousel-title">World Cup 2023: Underdog Team Advances to Finals</h2>
+                    </div>
+                </div>
+            </amp-carousel>
+        </div>
+        
+        <!-- Category Tabs -->
+        <div class="category-tabs">
+            <div class="category-tab active">Latest</div>
+            <div class="category-tab">Politics</div>
+            <div class="category-tab">Business</div>
+            <div class="category-tab">Technology</div>
+            <div class="category-tab">Science</div>
+            <div class="category-tab">Health</div>
+            <div class="category-tab">Sports</div>
+            <div class="category-tab">Entertainment</div>
+        </div>
+        
+        <!-- Latest News Section -->
+        <h2 class="section-title">Latest News</h2>
+        <div class="news-grid">
+            <!-- News Card 1 -->
+            <div class="news-card">
+                <amp-img src="https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?politics" width="600" height="400" layout="responsive" alt="News Image" class="news-image"></amp-img>
+                <div class="news-content">
+                    <span class="news-category">POLITICS</span>
+                    <h3 class="news-title">President Announces New Economic Recovery Plan</h3>
+                    <p class="news-excerpt">The president unveiled a comprehensive $2 trillion package aimed at revitalizing the economy post-pandemic.</p>
+                    <div class="news-meta">
+                        <span>By John Smith</span>
+                        <span>2 hours ago</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- News Card 2 -->
+            <div class="news-card">
+                <amp-img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?business" width="600" height="400" layout="responsive" alt="News Image" class="news-image"></amp-img>
+                <div class="news-content">
+                    <span class="news-category">BUSINESS</span>
+                    <h3 class="news-title">Stock Markets Reach All-Time High Amid Recovery Hopes</h3>
+                    <p class="news-excerpt">Global markets surged as positive economic data boosted investor confidence in a strong recovery.</p>
+                    <div class="news-meta">
+                        <span>By Sarah Johnson</span>
+                        <span>5 hours ago</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- News Card 3 -->
+            <div class="news-card">
+                <amp-img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?technology" width="600" height="400" layout="responsive" alt="News Image" class="news-image"></amp-img>
+                <div class="news-content">
+                    <span class="news-category">TECHNOLOGY</span>
+                    <h3 class="news-title">New AI Breakthrough Could Revolutionize Healthcare</h3>
+                    <p class="news-excerpt">Researchers develop AI system that can predict patient outcomes with 95% accuracy.</p>
+                    <div class="news-meta">
+                        <span>By Michael Chen</span>
+                        <span>8 hours ago</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- News Card 4 -->
+            <div class="news-card">
+                <amp-img src="https://images.unsplash.com/photo-1581092921461-39b2f28fbbae?health" width="600" height="400" layout="responsive" alt="News Image" class="news-image"></amp-img>
+                <div class="news-content">
+                    <span class="news-category">HEALTH</span>
+                    <h3 class="news-title">New Study Reveals Benefits of Mediterranean Diet</h3>
+                    <p class="news-excerpt">Research confirms significant health improvements for those following Mediterranean eating patterns.</p>
+                    <div class="news-meta">
+                        <span>By Dr. Emily Wilson</span>
+                        <span>Yesterday</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- News Card 5 -->
+            <div class="news-card">
+                <amp-img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?sports" width="600" height="400" layout="responsive" alt="News Image" class="news-image"></amp-img>
+                <div class="news-content">
+                    <span class="news-category">SPORTS</span>
+                    <h3 class="news-title">Underdog Team Stuns Champions in Historic Upset</h3>
+                    <p class="news-excerpt">In a match that will go down in history, the underdogs defeated the reigning champions 3-2.</p>
+                    <div class="news-meta">
+                        <span>By James Rodriguez</span>
+                        <span>Yesterday</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- News Card 6 -->
+            <div class="news-card">
+                <amp-img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?entertainment" width="600" height="400" layout="responsive" alt="News Image" class="news-image"></amp-img>
+                <div class="news-content">
+                    <span class="news-category">ENTERTAINMENT</span>
+                    <h3 class="news-title">Highly Anticipated Movie Breaks Box Office Records</h3>
+                    <p class="news-excerpt">The new superhero film has smashed opening weekend records, earning $250 million globally.</p>
+                    <div class="news-meta">
+                        <span>By Lisa Thompson</span>
+                        <span>2 days ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Featured Article -->
+        <h2 class="section-title">Featured Story</h2>
+        <div class="news-card">
+            <amp-img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?climate" width="1200" height="600" layout="responsive" alt="Featured Article Image" class="news-image"></amp-img>
+            <div class="news-content">
+                <span class="news-category">ENVIRONMENT</span>
+                <h3 class="news-title">Climate Change: The Point of No Return May Be Closer Than We Thought</h3>
+                <p class="news-excerpt">New research suggests that critical climate tipping points could be triggered at just 1.5°C of warming, much sooner than previously estimated. Scientists warn that immediate, drastic action is needed to prevent irreversible damage to global ecosystems.</p>
+                <div class="news-meta">
+                    <span>By Environmental Correspondent</span>
+                    <span>3 days ago</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Technology Section -->
+        <h2 class="section-title">Technology News</h2>
+        <div class="news-grid">
+            <!-- Tech News 1 -->
+            <div class="news-card">
+                <amp-img src="https://images.unsplash.com/photo-1601593763791-8c1772a1a0e4?smartphone" width="600" height="400" layout="responsive" alt="Tech News Image" class="news-image"></amp-img>
+                <div class="news-content">
+                    <span class="news-category">TECHNOLOGY</span>
+                    <h3 class="news-title">New Smartphone Features Foldable Screen and 200MP Camera</h3>
+                    <p class="news-excerpt">The latest flagship device pushes boundaries with innovative display technology and professional-grade camera capabilities.</p>
+                    <div class="news-meta">
+                        <span>By Tech Editor</span>
+                        <span>1 day ago</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tech News 2 -->
+            <div class="news-card">
+                <amp-img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?computer" width="600" height="400" layout="responsive" alt="Tech News Image" class="news-image"></amp-img>
+                <div class="news-content">
+                    <span class="news-category">TECHNOLOGY</span>
+                    <h3 class="news-title">Quantum Computing Breakthrough Could Solve Problems in Seconds</h3>
+                    <p class="news-excerpt">Scientists achieve quantum supremacy with new processor that outperforms classical supercomputers.</p>
+                    <div class="news-meta">
+                        <span>By Science Reporter</span>
+                        <span>2 days ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Health Section -->
+        <h2 class="section-title">Health & Wellness</h2>
+        <div class="news-grid">
+            <!-- Health News 1 -->
+            <div class="news-card">
+                <amp-img src="https://images.unsplash.com/photo-1564053489984-317bbd824340?hospital" width="600" height="400" layout="responsive" alt="Health News Image" class="news-image"></amp-img>
+                <div class="news-content">
+                    <span class="news-category">HEALTH</span>
+                    <h3 class="news-title">New Vaccine Shows Promise Against Multiple Cancer Types</h3>
+                    <p class="news-excerpt">Early clinical trials demonstrate remarkable results for personalized cancer vaccine approach.</p>
+                    <div class="news-meta">
+                        <span>By Medical Correspondent</span>
+                        <span>1 day ago</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Health News 2 -->
+            <div class="news-card">
+                <amp-img src="https://images.unsplash.com/photo-1600891964092-4316c2850325?exercise" width="600" height="400" layout="responsive" alt="Health News Image" class="news-image"></amp-img>
+                <div class="news-content">
+                    <span class="news-category">WELLNESS</span>
+                    <h3 class="news-title">Study Reveals Optimal Exercise Routine for Longevity</h3>
+                    <p class="news-excerpt">Researchers identify the perfect balance of cardio and strength training for maximum health benefits.</p>
+                    <div class="news-meta">
+                        <span>By Fitness Expert</span>
+                        <span>3 days ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Global News</h3>
+                <p>Delivering accurate, timely news from around the world since 1995. Our mission is to inform, educate, and inspire.</p>
+                <div class="social-links">
+                    <amp-social-share type="facebook" width="40" height="40"></amp-social-share>
+                    <amp-social-share type="twitter" width="40" height="40"></amp-social-share>
+                    <amp-social-share type="linkedin" width="40" height="40"></amp-social-share>
+                    <amp-social-share type="email" width="40" height="40"></amp-social-share>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Categories</h3>
+                <ul class="footer-links">
+                    <li><a href="#">World</a></li>
+                    <li><a href="#">Politics</a></li>
+                    <li><a href="#">Business</a></li>
+                    <li><a href="#">Technology</a></li>
+                    <li><a href="#">Science</a></li>
+                    <li><a href="#">Health</a></li>
+                    <li><a href="#">Sports</a></li>
+                    <li><a href="#">Entertainment</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Advertise</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Ethics Policy</a></li>
+                    <li><a href="#">Corrections</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Subscribe</h3>
+                <p>Get the latest news delivered to your inbox daily.</p>
+                <form class="subscribe-form" method="post" action-xhr="https://example.com/subscribe" target="_top">
+                    <input type="email" name="email" placeholder="Your email address" required>
+                    <input type="submit" value="Subscribe">
+                </form>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2023 Global News Daily. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- AMP Analytics -->
+    <amp-analytics type="googleanalytics">
+        <script type="application/json">
+        {
+            "vars": {
+                "account": "UA-XXXXX-Y"
+            },
+            "triggers": {
+                "trackPageview": {
+                    "on": "visible",
+                    "request": "pageview"
+                }
+            }
+        }
+        </script>
+    </amp-analytics>
+</body>
+</html>
